@@ -1,0 +1,36 @@
+{
+	"socialNetwork": [
+	    {
+	        "name": "Mel",
+	        "friends": ["Addison"]
+	    },
+	    {
+	        "name": "Addison",
+	        "friends": ["Mel", "Edward", "Bailey", "Alex"]
+	    },
+	    {
+	        "name": "Edward",
+	        "friends": ["Bailey", "Alex", "Addison"]
+	    },
+	    {
+	        "name": "Bailey",
+	        "friends": ["Edward", "Alex", "Addison", "Jess"]
+	    },
+	    {
+	        "name": "Alex",
+	        "friends": ["Bailey", "Edward", "Addison", "Jess"]
+	    },
+	    {
+	        "name": "Jess",
+	        "friends": ["Bailey", "Alex", "Riley"]
+	    },
+	    {
+	        "name": "Riley",
+	        "friends": ["Jess", "Daniel"]
+	    },
+	    {
+	        "name": "Daniel",
+	        "friends": ["Riley"]
+	    }
+	] 
+}

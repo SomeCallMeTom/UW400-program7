@@ -1,0 +1,196 @@
+{
+	"socialNetwork": [
+	    {
+	        "name": "Stanley",
+	        "friends": ["Aria"]
+	    },
+	    {
+	        "name": "Aria",
+	        "friends": ["Stanley", "Thomas", "Nate"]
+	    },
+	    {
+	        "name": "Thomas",
+	        "friends": ["Aria", "Nate"]
+	    },
+	    {
+	        "name": "Nate",
+	        "friends": ["Aria", "Thomas", "Carol", "Larry", "Cameron", "Samuel"]
+	    },
+	    {
+	        "name": "Carol",
+	        "friends": ["Nate", "Larry"]
+	    },
+	    {
+	        "name": "Larry",
+	        "friends": ["Carol", "Nate", "Kendra", "Alisha"]
+	    },
+	    {
+	        "name": "Kendra",
+	        "friends": ["Larry", "Esther"]
+	    },
+	    {
+	        "name": "Cameron",
+	        "friends": ["Nate"]
+	    },
+	    {
+	        "name": "Alisha",
+	        "friends": ["Larry", "Esther", "Jennifer", "Margot", "Kerry", "Dana", "Xavier"]
+	    },
+	    {
+	        "name": "Jennifer",
+	        "friends": ["Alisha", "Gabe", "Ashley"]
+	    },
+	    {
+	        "name": "Gabe",
+	        "friends": ["Jennifer", "Mason"]
+	    },
+	    {
+	        "name": "Mason",
+	        "friends": ["Gabe", "Ashley"]
+	    },
+	    {
+	        "name": "Ashley",
+	        "friends": ["Jennifer", "Mason"]
+	    },
+	    {
+	        "name": "Samuel",
+	        "friends": ["Nate", "Mark", "Margot"]
+	    },
+	    {
+	        "name": "Mark",
+	        "friends": ["Samuel", "Harriet", "Lee"]
+	    },
+	    {
+	        "name": "Lee",
+	        "friends": ["Mark"]
+	    },
+	    {
+	        "name": "Harriet",
+	        "friends": ["Mark", "Cole"]
+	    },
+	    {
+	        "name": "Cole",
+	        "friends": ["Harriet", "Gabby", "Ben", "Avery"]
+	    },
+	    {
+	        "name": "Gabby",
+	        "friends": ["Cole", "Ben", "Avery", "Jill"]
+	    },
+	    {
+	        "name": "Jill",
+	        "friends": ["Gabby", "Avery"]
+	    },
+	    {
+	        "name": "Avery",
+	        "friends": ["Gabby", "Jill", "Ben", "Cole"]
+	    },
+	    {
+	        "name": "Ben",
+	        "friends": ["Avery", "Gabby", "Cole", "Lillian", "Will", "Margot"]
+	    },
+	    {
+	        "name": "Lillian",
+	        "friends": ["Ben"]
+	    },
+	    {
+	        "name": "Margot",
+	        "friends": ["Samuel", "Ben", "Alisha", "Alexis"]
+	    },
+	    {
+	        "name": "Will",
+	        "friends": ["Chris", "Ben", "Todd", "Lynn"]
+	    },
+	    {
+	        "name": "Chris",
+	        "friends": ["Will"]
+	    },
+	    {
+	        "name": "Todd",
+	        "friends": ["Will", "Matt", "Frankie"]
+	    },
+	    {
+	        "name": "Frankie",
+	        "friends": ["Todd", "Kerry"]
+	    },
+	    {
+	        "name": "Kerry",
+	        "friends": ["Alisha", "Frankie", "Matt", "Leslie"]
+	    },
+	    {
+	        "name": "Leslie",
+	        "friends": ["Andrew", "Taylor", "Kerry"]
+	    },
+	    {
+	        "name": "Andrew",
+	        "friends": ["Leslie", "Nancy"]
+	    },
+	    {
+	        "name": "Nancy",
+	        "friends": ["Andrew"]
+	    },
+	    {
+	        "name": "Taylor",
+	        "friends": ["Leslie", "Billy", "Kirsten"]
+	    },
+	    {
+	        "name": "Billy",
+	        "friends": ["Taylor"]
+	    },
+	    {
+	        "name": "Matt",
+	        "friends": ["Kerry", "Evan", "Todd"]
+	    },
+	    {
+	        "name": "Evan",
+	        "friends": ["Matt", "Sasha"]
+	    },
+	    {
+	        "name": "Sasha",
+	        "friends": ["Evan"]
+	    },
+	    {
+	        "name": "Lynn",
+	        "friends": ["Will", "Cory"]
+	    },
+	    {
+	        "name": "Kirsten",
+	        "friends": ["Taylor", "Nicky"]
+	    },
+	    {
+	        "name": "Nicky",
+	        "friends": ["Cory", "Kirsten"]
+	    },
+	    {
+	        "name": "Cory",
+	        "friends": ["Lynn", "Nicky", "Carly", "Drew", "Megan", "Alexis"]
+	    },
+	    {
+	        "name": "Drew",
+	        "friends": ["Cory", "Carly", "Alexis", "Megan"]
+	    },
+	    {
+	        "name": "Megan",
+	        "friends": ["Drew", "Cory", "Carly", "Alexis"]
+	    },
+	    {
+	        "name": "Alexis",
+	        "friends": ["Megan", "Drew", "Cory", "Carly", "Margot"]
+	    },
+	    {
+	        "name": "Carly",
+	        "friends": ["Cory", "Drew", "Megan", "Alexis"]
+	    },
+	    {
+	        "name": "Esther",
+	        "friends": ["Kendra", "Alisha"]
+	    },
+	    {
+	        "name": "Dana",
+	        "friends": ["Alisha", "Xavier"]
+	    },
+	    {
+	        "name": "Xavier",
+	        "friends": ["Alisha", "Dana"]
+	    }
+	]
+}

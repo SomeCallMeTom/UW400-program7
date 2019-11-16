@@ -1,0 +1,20 @@
+{
+	"socialNetwork": [
+	    {
+	        "name": "Lilly",
+	        "friends": ["Aaron", "Scott"]
+	    },
+	    {
+	        "name": "Scott",
+	        "friends": ["Malika", "Lilly"]
+	    },
+	    {
+	        "name": "Malika",
+	        "friends": ["Scott"]
+	    },
+	    {
+	        "name": "Aaron",
+	        "friends": ["Lilly"]
+	    }
+	] 
+}
