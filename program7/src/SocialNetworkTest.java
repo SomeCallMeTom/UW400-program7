@@ -1,8 +1,9 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -17,42 +18,317 @@ import org.junit.runners.MethodSorters;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class SocialNetworkTest {
-	private SocialNetwork network;
+  private SocialNetwork emptyNetwork;
+  private SocialNetwork lgNetwork;
+  private SocialNetwork mdNetwork;
+  private SocialNetwork smNetwork;
 
-	@Rule
-	public Timeout globalTimeout = new Timeout(2000, TimeUnit.MILLISECONDS);
+  @Rule
+  public Timeout globalTimeout = new Timeout(2000, TimeUnit.MILLISECONDS);
 
-	@Before
-	public void setUp() throws Exception {
-		// you may use any or all of the provided json files for JUnit testing
-		this.network = new SocialNetwork("social-network-md.json");
-	}
+  @Before
+  public void setUp() throws Exception {
+    // you may use any or all of the provided json files for JUnit testing
+    this.emptyNetwork = new SocialNetwork("social-network-empty.json");
+    this.smNetwork = new SocialNetwork("social-network-sm.json");
+    this.mdNetwork = new SocialNetwork("social-network-md.json");
+    this.lgNetwork = new SocialNetwork("social-network-lg.json");
 
-	@After
-	public void tearDown() throws Exception {
-		this.network = null;
-	}
+  }
 
-	@Test
-	public final void test00_socialButterflyValid() {
-		try {
-			assertEquals("test00: failed - expected: \"Addison\" returned: \"" + network.socialButterfly() +  "\"",
-					true, network.socialButterfly().equals("Addison"));
-		} catch (Exception e) {
-			fail("test00: failed - unexpected exception occurred");
-		}
-	}
+  @After
+  public void tearDown() throws Exception {
+    this.emptyNetwork = this.smNetwork = this.mdNetwork = this.lgNetwork = null;
+  }
 
-	@Test
-	public final void test01_socialButterflyEmptyNetwork() {
-		try {
-			this.network = new SocialNetwork("");
-			assertEquals("test00: failed - expected: \"\" returned: \"" + network.socialButterfly() +  "\"",
-					true, network.socialButterfly().equals(""));
-		} catch (Exception e) {
-			fail("test00: failed - unexpected exception occurred");
-		}
-	}
+  @Test
+  public final void test00_socialButterflyValid() {
+    try {
+      assertEquals(
+          "test00: failed - expected: \"Lilly\" returned: \"" + smNetwork.socialButterfly() + "\"",
+          true, smNetwork.socialButterfly().equals("Lilly"));
 
-	// TODO: write your tests here - don't forget edge cases!
+      assertEquals("test00: failed - expected: \"Addison\" returned: \""
+          + mdNetwork.socialButterfly() + "\"", true,
+          mdNetwork.socialButterfly().equals("Addison"));
+
+      assertEquals(
+          "test00: failed - expected: \"Alisha\" returned: \"" + lgNetwork.socialButterfly() + "\"",
+          true, lgNetwork.socialButterfly().equals("Alisha"));
+    } catch (Exception e) {
+      fail("test00: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test01_socialButterflyEmptyNetwork() {
+    try {
+      assertEquals(
+          "test01: failed - expected: \"\" returned: \"" + emptyNetwork.socialButterfly() + "\"",
+          true, emptyNetwork.socialButterfly().equals(""));
+    } catch (Exception e) {
+      fail("test01: failed - unexpected exception occurred");
+    }
+  }
+
+  @Test
+  public final void test02_avgFriendsValid() {
+    try {
+      assertEquals(2, smNetwork.averageFriendsPerPerson(),
+          "test02: failed - expected: 2 returned: \"" + smNetwork.averageFriendsPerPerson() + "\"");
+
+      assertEquals(3, mdNetwork.averageFriendsPerPerson(),
+          "test02: failed - expected: 3 returned: \"" + mdNetwork.averageFriendsPerPerson() + "\"");
+
+      assertEquals(3, lgNetwork.averageFriendsPerPerson(),
+          "test02: failed - expected: 3 returned: \"" + lgNetwork.averageFriendsPerPerson() + "\"");
+
+      assertEquals(0, emptyNetwork.averageFriendsPerPerson(),
+          "test02: failed - expected: 3 returned: \"" + emptyNetwork.averageFriendsPerPerson()
+              + "\"");
+
+    } catch (Exception e) {
+      fail("test02: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test03_influencerValid() {
+    try {
+      assertEquals(
+          "test03: failed - expected: \"Lilly\" returned: \"" + smNetwork.influencer() + "\"", true,
+          smNetwork.influencer().equals("Lilly"));
+
+      assertEquals(
+          "test03: failed - expected: \"Addison\" returned: \"" + mdNetwork.influencer() + "\"",
+          true, mdNetwork.influencer().equals("Addison"));
+
+      assertEquals(
+          "test03: failed - expected: \"Alisha\" returned: \"" + lgNetwork.influencer() + "\"",
+          true, lgNetwork.influencer().equals("Alisha"));
+
+      assertEquals(
+          "test03: failed - expected: \"\" returned: \"" + emptyNetwork.influencer() + "\"", true,
+          emptyNetwork.influencer().equals(""));
+
+    } catch (Exception e) {
+      fail("test03: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test04_mutualFriends() {
+    try {
+      Set<String> testSet = new HashSet<String>();
+
+      assertEquals(
+          "test04: failed, expected empty set, recieved: "
+              + emptyNetwork.mutualFriends("Lilly", "Scott"),
+          true, emptyNetwork.mutualFriends("Lilly", "Scott").equals(testSet));
+
+      assertEquals(
+          "test04: failed, expected empty set, recieved: "
+              + smNetwork.mutualFriends("Lilly", "Scott"),
+          true, smNetwork.mutualFriends("Lilly", "Scott").equals(testSet));
+
+      assertEquals(
+          "test04: failed, expected empty set, recieved: " + smNetwork.mutualFriends("Lillly", ""),
+          true, smNetwork.mutualFriends("Lilly", "").equals(testSet));
+
+      testSet.add("Edward");
+      testSet.add("Addison");
+      testSet.add("Jess");
+
+
+      assertEquals(
+          "test04: failed, expected [\"Edward\", \"Addison\",\"Jess\"], recieved: "
+              + mdNetwork.mutualFriends("Alex", "Bailey"),
+          true, mdNetwork.mutualFriends("Alex", "Bailey").equals(testSet));
+
+      testSet = new HashSet<String>();
+      testSet.add("Cory");
+      testSet.add("Carly");
+      testSet.add("Alexis");
+
+      assertEquals(
+          "test04: failed, expected [\"Cory\", \"Carly\",\"Alexis\"], recieved: "
+              + lgNetwork.mutualFriends("Drew", "Megan"),
+          true, lgNetwork.mutualFriends("Drew", "Megan").equals(testSet));
+
+      testSet = null;
+
+    } catch (Exception e) {
+      fail("test04: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test05_haveSeenMeme() {
+
+    try {
+      Set<String> testSet = new HashSet<String>();
+
+      assertEquals(
+          "test05: failed, expected empty set, recieved: " + emptyNetwork.haveSeenMeme("Test", 3),
+          true, emptyNetwork.haveSeenMeme("Test", 3).equals(testSet));
+
+      assertEquals("test05: failed, expected empty set, recieved: " + smNetwork.haveSeenMeme("", 1),
+          true, smNetwork.haveSeenMeme("", 1).equals(testSet));
+
+      assertEquals(
+          "test05: failed, expected empty set, recieved: " + smNetwork.haveSeenMeme("Aaron", 0),
+          true, smNetwork.haveSeenMeme("Aaron", 0).equals(testSet));
+
+      testSet.add("Aaron");
+
+      assertEquals(
+          "test05: failed, expected [\"Aaron\"], recieved: " + smNetwork.haveSeenMeme("Aaron", 1),
+          true, smNetwork.haveSeenMeme("Aaron", 1).equals(testSet));
+
+      testSet.add("Lilly");
+
+      assertEquals(
+          "test05: failed, expected [\"Aaron\",\"Lilly\"], recieved: "
+              + smNetwork.haveSeenMeme("Aaron", 2),
+          true, smNetwork.haveSeenMeme("Aaron", 2).equals(testSet));
+
+      testSet.add("Scott");
+
+      assertEquals(
+          "test05: failed, expected [\"Aaron\",\"Lilly\", \"Scott\"], recieved: "
+              + smNetwork.haveSeenMeme("Aaron", 3),
+          true, smNetwork.haveSeenMeme("Aaron", 3).equals(testSet));
+
+      testSet.add("Malika");
+
+      assertEquals(
+          "test05: failed, expected [\"Aaron\",\"Lilly\",\"Scott\",\"Malika\"], recieved: "
+              + smNetwork.haveSeenMeme("Aaron", 4),
+          true, smNetwork.haveSeenMeme("Aaron", 4).equals(testSet));
+
+      testSet.add("Edward");
+      testSet.add("Bailey");
+      testSet.add("Alex");
+      testSet.add("Addison");
+
+      assertEquals(
+          "test05: failed, expected [\"Edward\",\"Bailey\",\"Alex\",\"Addison\"], recieved: "
+              + mdNetwork.haveSeenMeme("Edward", 2),
+          true, mdNetwork.haveSeenMeme("Edward", 2).equals(testSet));
+
+      testSet.add("Jess");
+      testSet.add("Mel");
+      assertEquals(
+          "test05: failed, expected [\"Edward\",\"Bailey\",\"Alex\",\"Addison\",\"Jess\",\"Mel\"], recieved: "
+              + mdNetwork.haveSeenMeme("Edward", 3),
+          true, mdNetwork.haveSeenMeme("Edward", 3).equals(testSet));
+
+      testSet = new HashSet<String>();
+      testSet.add("Sasha");
+      testSet.add("Evan");
+      testSet.add("Matt");
+      testSet.add("Kerry");
+      testSet.add("Todd");
+
+      assertEquals(
+          "test05: failed, expected [\"Sasha\", \"Evan\",\"Matt\",\"Kerry\",\"Todd\"], recieved: "
+              + lgNetwork.haveSeenMeme("Sasha", 4),
+          true, lgNetwork.haveSeenMeme("Sasha", 4).equals(testSet));
+
+      testSet = null;
+
+    } catch (Exception e) {
+      fail("test05: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test06_youMayKnow() {
+    try {
+      Set<String> testSet = new HashSet<String>();
+
+      assertEquals(
+          "test06: failed, expected empty set, recieved: " + emptyNetwork.youMayKnow("Test"), true,
+          emptyNetwork.youMayKnow("Test").equals(testSet));
+
+      assertEquals("test06: failed, expected empty set, recieved: " + smNetwork.youMayKnow(""),
+          true, smNetwork.youMayKnow("").equals(testSet));
+
+
+      testSet.add("Malika");
+
+      assertEquals(
+          "test04: failed, expected [\"Malika\"], recieved: " + smNetwork.youMayKnow("Lilly"), true,
+          smNetwork.youMayKnow("Lilly").equals(testSet));
+
+      testSet = new HashSet<String>();
+      testSet.add("Baily");
+      testSet.add("Alex");
+
+      assertEquals("test04: failed, expected empty set, recieved: " + mdNetwork.youMayKnow("Riley"),
+          true, mdNetwork.youMayKnow("Riley").equals(testSet));
+
+      testSet = new HashSet<String>();
+      testSet.add("Jennifer");
+
+      assertEquals(
+          "test04: failed, expected [\"Jennifer\"], recieved: " + lgNetwork.youMayKnow("Mason"),
+          true, lgNetwork.youMayKnow("Mason").equals(testSet));
+
+      testSet = null;
+
+    } catch (Exception e) {
+      fail("test04: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+  @Test
+  public final void test07_isFriendsGroup() {
+    try {
+      
+      HashSet<String> testSet = new HashSet<String>();
+      assertEquals(
+          "test07: failed, expected false, receieved: " + emptyNetwork.isFriendGroup(testSet), false,
+          emptyNetwork.isFriendGroup(testSet));
+      
+      assertEquals(
+          "test07: failed, expected false, receieved: " + smNetwork.isFriendGroup(testSet), false,
+          smNetwork.isFriendGroup(testSet));
+
+      testSet.add("Aaron");
+      assertEquals(
+          "test07: failed, expected false, receieved: " + emptyNetwork.isFriendGroup(testSet), false,
+          emptyNetwork.isFriendGroup(testSet));
+
+      assertEquals(
+          "test07: failed, expected false, receieved: " + smNetwork.isFriendGroup(testSet), false,
+          smNetwork.isFriendGroup(testSet));
+
+      testSet.add("Lilly");
+      assertEquals(
+          "test07: failed, expected false, receieved: " + emptyNetwork.isFriendGroup(testSet), false,
+          emptyNetwork.isFriendGroup(testSet));
+
+      assertEquals(
+          "test07: failed, expected true, receieved: " + smNetwork.isFriendGroup(testSet), true,
+          smNetwork.isFriendGroup(testSet));
+      
+      testSet.add("Scott");
+      assertEquals(
+          "test07: failed, expected false, receieved: " + emptyNetwork.isFriendGroup(testSet), false,
+          emptyNetwork.isFriendGroup(testSet));
+
+      assertEquals(
+          "test07: failed, expected false, receieved: " + smNetwork.isFriendGroup(testSet), false,
+          smNetwork.isFriendGroup(testSet));
+
+
+    } catch (Exception e) {
+      fail("test07: failed - unexpected exception occurred: " + e.getMessage());
+    }
+  }
+
+
+
 }
+
