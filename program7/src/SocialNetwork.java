@@ -176,8 +176,9 @@ public class SocialNetwork implements SocialNetworkADT {
     for (String person : vertices) {
       for (String toP : vertices) {
         for (String fromP : vertices) {
-          double potential = (double) map.get(fromP).get(person) + (double) map.get(person).get(toP);
-          if(potential<0) {
+          double potential =
+              (double) map.get(fromP).get(person) + (double) map.get(person).get(toP);
+          if (potential < 0) {
             System.out.println("wrapping problem");
           }
           if (map.get(fromP).get(toP) > potential) {
@@ -256,10 +257,55 @@ public class SocialNetwork implements SocialNetworkADT {
 
   @Override
   public String glue(Set<String> people) {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    String out = "";
+    if (people.size() < 3 || !graph.getAllVertices().containsAll(people)) {
+      return out;
+    }
+    Person[] persons = new Person[people.size()];
+    int i = 0;
+    for (String name : people) {
+      persons[i] = new Person();
+      persons[i].setName(name);
+      persons[i].setFriends((String[]) graph.getAdjacentVerticesOf(name).toArray());
+      i++;
+    }
+    
+      
+    Graph<String> subGraph = new Graph<String>();
+    for (Person person : persons) {
+      subGraph.addVertex(person.getName());
+      for (String friend : person.getFriends()) {
+        subGraph.addVertex(friend);
+        subGraph.addEdge(person.getName(), friend);
+      }
+    }
+    
+    
+    
+    HashSet<String> set = new HashSet<String>();
+    LinkedList<String> q = new LinkedList<String>();
 
+    q.add(persons[0].getName());
+    for (int j = 1; j <= people.size(); j++) {
+      q.removeAll(set);
+      int stop = q.size();
+      for (int j1 = 0; j1 < stop; j1++) {
+        String p = q.remove();
+        q.addAll(subGraph.getAdjacentVerticesOf(p));
+        set.add(p);
+      } // end person loop
+    } // end for loop
+    if (!(set.size() == people.size())) {
+      return out;
+    }
+
+    for (Person person : persons) {
+      subGraph.removeVertex(person.getName());
+      // build DFS, check if contains all elements
+    }
+    return out;
+  }
+  }
   /**
    * Construct an undirected graph from array of Person objects.
    * 
